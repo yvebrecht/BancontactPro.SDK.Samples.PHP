@@ -1,0 +1,10 @@
+# The build context is the folder above both repositories: keep everything but what the build needs.
+*
+!BancontactPro.PHP/composer.json
+!BancontactPro.PHP/LICENSE
+!BancontactPro.PHP/README.md
+!BancontactPro.PHP/src/**
+!BancontactPro.SDK.Samples.PHP/composer.json
+!BancontactPro.SDK.Samples.PHP/src/**
+!BancontactPro.SDK.Samples.PHP/public/**
+**/vendor

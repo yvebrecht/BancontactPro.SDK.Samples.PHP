@@ -1,0 +1,25 @@
+{
+    "name": "dewall88/bancontactpro-sample-web",
+    "description": "Sample web UI for the unofficial BancontactPro PHP client, with debug output for every call to Bancontact.",
+    "type": "project",
+    "license": "proprietary",
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../BancontactPro.PHP",
+            "options": { "symlink": false }
+        }
+    ],
+    "require": {
+        "php": ">=8.2",
+        "dewall88/bancontactpro": "*@dev",
+        "guzzlehttp/guzzle": "^7.9"
+    },
+    "autoload": {
+        "psr-4": { "SampleWeb\\": "src/" }
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": { "php-http/discovery": true }
+    }
+}

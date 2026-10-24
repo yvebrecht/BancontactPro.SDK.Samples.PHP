@@ -75,7 +75,7 @@ HTML);
 <label>Amount (euro cents)<input name="amount" type="number" min="1" value="100" required></label>
 <label>Description<input name="description" value="sample payment"></label>
 <label>Reference<input name="reference"></label>
-<label id="pos-field" hidden>POS ID (Static QR)<input name="posId" value="pos-1"></label>
+<label id="pos-field" hidden>POS ID (Static QR)<input name="posId" value="POS00001" maxlength="36" pattern="[A-Za-z0-9]{1,36}" title="Letters and digits only, at most 36 characters"></label>
 </div><button type="submit">Create payment</button></form>
 <p id="pay-error" class="error"></p>
 <section id="pay-result"></section>
@@ -119,7 +119,7 @@ Scan the QR image with the preprod test app and note whether it opens.</p>
 <label>Amount (euro cents, fixed only)<input name="amount" type="number" min="1" value="{$amount}"></label>
 <label>Description (fixed only)<input name="description" value="{$description}"></label>
 <label>Reference (fixed only)<input name="reference" value="{$reference}"></label>
-<label>POS ID (till only)<input name="posId" value="{$posId}"></label>
+<label>POS ID (till only)<input name="posId" value="{$posId}" maxlength="36" pattern="[A-Za-z0-9]{1,36}" title="Letters and digits only, at most 36 characters"></label>
 <label>Format<select name="format"><option{$png}>PNG</option><option{$svg}>SVG</option></select></label>
 </div><button type="submit">Build QR</button></form>{$outcome}
 HTML);

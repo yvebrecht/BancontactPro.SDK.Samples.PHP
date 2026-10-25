@@ -118,7 +118,7 @@ final class App
             'amount' => $_GET['amount'] ?? '100',
             'description' => $_GET['description'] ?? 'sample',
             'reference' => $_GET['reference'] ?? '',
-            'posId' => $_GET['posId'] ?? 'pos-1',
+            'posId' => $_GET['posId'] ?? 'POS00001',
             'format' => $_GET['format'] ?? 'PNG',
         ];
         if (!isset($_GET['product'])) {
@@ -173,7 +173,7 @@ final class App
             $reference = trim((string) ($body['reference'] ?? '')) ?: null;
             $amount = (int) ($body['amount'] ?? 0);
             $created = $product === Product::StaticQr
-                ? $payments->createStaticQrPayment(new CreateStaticQrPaymentRequest(amount: $amount, posId: trim((string) ($body['posId'] ?? '')) ?: 'pos-1', reference: $reference, description: $description, callbackUrl: self::callbackUrl()))
+                ? $payments->createStaticQrPayment(new CreateStaticQrPaymentRequest(amount: $amount, posId: trim((string) ($body['posId'] ?? '')) ?: 'POS00001', reference: $reference, description: $description, callbackUrl: self::callbackUrl()))
                 : $payments->create(new CreatePaymentRequest(amount: $amount, reference: $reference, description: $description, callbackUrl: self::callbackUrl()));
             $this->json(201, self::view($created));
         } catch (Throwable $e) {

@@ -243,11 +243,12 @@ final class App
     {
         $body = (string) file_get_contents('php://input');
         $received = (object) (function_exists('getallheaders') ? getallheaders() : []);
+        $analysis = Diagnostics::analyseSignature($_SERVER['HTTP_SIGNATURE'] ?? '', $body);
         try {
             // The exact bytes received: re-serialising a parsed body first would change them and break the signature.
             $verified = $this->factory->callbackVerifier()->verifyAndParse($_SERVER['HTTP_SIGNATURE'] ?? '', $body, $path);
         } catch (InvalidCallbackException $e) {
-            $this->debug->add('callback', 'Callback rejected', ['method' => 'POST', 'url' => $path, 'status' => 401, 'requestHeaders' => $received, 'requestBody' => DebugLog::pretty($body), 'error' => $e->getMessage()]);
+            $this->debug->add('callback', 'Callback rejected', ['method' => 'POST', 'url' => $path, 'status' => 401, 'requestHeaders' => $received, 'requestBody' => DebugLog::pretty($body), 'rawRequestBody' => $body, 'analysis' => $analysis, 'error' => $e->getMessage()]);
             $this->send(401, 'text/plain', '');
 
             return;
@@ -272,6 +273,8 @@ final class App
             'status' => 200,
             'requestHeaders' => $received,
             'requestBody' => DebugLog::pretty($body),
+            'rawRequestBody' => $body,
+            'analysis' => $analysis,
             'responseBody' => "Signature valid. Bancontact request ID: {$verified->requestId}",
         ]);
         $this->send(200, 'text/plain', '');
